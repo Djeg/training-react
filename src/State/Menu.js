@@ -1,25 +1,25 @@
+import { createSlice } from 'redux-starter-kit'
+
 // Toujours mettre cet etat initial du state
 export const INITIAL_STATE = { open: false }
 
-// Les actions type
-export const TOGGLE_MENU = 'TOGGLE_MENU'
-
-// L'unique reducer
-export default (state = INITIAL_STATE, action = {}) => {
-  switch (action.type) {
-    case TOGGLE_MENU:
-      return {
-        ...state,
-        open: !state.open,
-      }
-    default:
-      return state
+const slice = createSlice({
+  name: 'menu',
+  initialState: INITIAL_STATE,
+  reducers: {
+    toggelMenu: (state, action) => ({
+      ...state,
+      open: !state.open,
+    }),
   }
-}
+})
+
+// // L'unique reducer
+export default slice.reducer
+
+// Les actions type
+export const TOGGLE_MENU = String(slice.actions.toggelMenu)
+
 
 // Les actions créateur
-export const toggleMenu = () =>
-  ({
-    type: TOGGLE_MENU
-    // payload: les datas pour faire fonctionner l'action
-  })
+export const toggleMenu = slice.actions.toggelMenu
