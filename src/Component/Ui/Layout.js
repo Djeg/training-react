@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
-import { toggleMenu } from './../../State/Menu'
+import { toggleMenu, toggle } from './../../State/Menu'
 
 export const GlobalStyle = createGlobalStyle`
   html, body {
@@ -32,6 +32,7 @@ export const HeaderBox = () => {
     <>
       <Header>
         <MenuButton onClick={() => dispatch(toggleMenu())} />
+        <MenuButton onClick={() => dispatch(toggle())} />
       </Header>
     </>
   )
@@ -54,6 +55,14 @@ export const MenuContainer = styled.div`
 
 export const MenuContainerBox = (props) => {
   const open = useSelector(state => state.menu.open)
+
+  useEffect(() => {
+    console.log('coucou from menu')
+
+    return () => {
+      console.log('bye bye from menu')
+    }
+  }, [])
 
   return (
   <>

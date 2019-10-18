@@ -3,22 +3,22 @@
     {
       "name": "Learning React",
       "done": false,
-      "id": 1,
+      "id": 1
     },
     {
       "name": "Learning Redux",
       "done": false,
-      "id": 2,
+      "id": 2
     },
     {
       "name": "Learning React + Redux",
       "done": true,
-      "id": 3,
+      "id": 3
     },
     {
       "name": "Learning Saga",
       "done": false,
-      "id": 4,
-    },
+      "id": 4
+    }
   ]
 }

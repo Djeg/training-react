@@ -1,7 +1,7 @@
 import { createSlice } from 'redux-starter-kit'
 
 // Toujours mettre cet etat initial du state
-export const INITIAL_STATE = { open: false }
+export const INITIAL_STATE = { open: false, display: true }
 
 const slice = createSlice({
   name: 'menu',
@@ -11,6 +11,10 @@ const slice = createSlice({
       ...state,
       open: !state.open,
     }),
+    toggle: state => ({
+      ...state,
+      display: !state.display,
+    })
   }
 })
 
@@ -22,3 +26,5 @@ export const TOGGLE_MENU = String(slice.actions.toggleMenu)
 
 // Les actions créateur
 export const toggleMenu = slice.actions.toggleMenu
+
+export const toggle = slice.actions.toggle
