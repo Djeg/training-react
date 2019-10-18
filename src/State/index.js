@@ -1,8 +1,8 @@
 import { combineReducers, createStore } from 'redux'
-import * as Menu from './Menu'
+import menu from './Menu'
 
 const rootReducer = combineReducers({
-  menu: Menu.reducer,
+  menu,
 })
 
 export const store = createStore(rootReducer)

@@ -1,6 +1,7 @@
 import React from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
+import { toggleMenu } from './../../State/Menu'
 
 export const GlobalStyle = createGlobalStyle`
   html, body {
@@ -28,11 +29,11 @@ export const HeaderBox = () => {
   const dispatch = useDispatch()
 
   return (
-  <>
-    <Header>
-      <MenuButton onClick={() => dispatch({ type: 'TOGGLE_MENU' })} />
-    </Header>
-  </>
+    <>
+      <Header>
+        <MenuButton onClick={() => dispatch(toggleMenu())} />
+      </Header>
+    </>
   )
 }
 

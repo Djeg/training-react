@@ -1,6 +1,8 @@
+// Les actions type
 export const TOGGLE_MENU = 'TOGGLE_MENU'
 
-export const reducer = (state = { open: false }, action) => {
+// L'unique reducer
+export default (state = { open: false }, action) => {
   switch (action.type) {
     case TOGGLE_MENU:
       return {
@@ -11,3 +13,10 @@ export const reducer = (state = { open: false }, action) => {
       return state
   }
 }
+
+// Les actions créateur
+export const toggleMenu = () =>
+  ({
+    type: TOGGLE_MENU
+    // payload: les datas pour faire fonctionner l'action
+  })
