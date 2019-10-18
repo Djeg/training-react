@@ -1,16 +1,16 @@
 import React from 'react'
 import {
   GlobalStyle,
-  Header,
+  HeaderBox,
+  MenuContainerBox,
   MainContainer,
-  MenuContainer,
 } from './Ui/Layout'
 
 export const App = () =>
   <>
     <GlobalStyle />
-    <Header />
-    <MenuContainer />
+    <HeaderBox />
+    <MenuContainerBox />
     <MainContainer>
       <h1>Hello World</h1>
     </MainContainer>
