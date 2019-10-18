@@ -1,17 +1,8 @@
 import { combineReducers, createStore } from 'redux'
+import * as Menu from './Menu'
 
-export const TOGGLE_MENU = 'TOGGLE_MENU'
+const rootReducer = combineReducers({
+  menu: Menu.reducer,
+})
 
-export const menu = (state = { menu: { open: false } }, action) => {
-  switch (action.type) {
-    case TOGGLE_MENU:
-      return {
-        ...state,
-        menu: { ...state.menu, open: !state.menu.open}
-      }
-    default:
-      return state
-  }
-}
-
-export const store = createStore(menu)
+export const store = createStore(rootReducer)
