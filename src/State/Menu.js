@@ -7,7 +7,7 @@ const slice = createSlice({
   name: 'menu',
   initialState: INITIAL_STATE,
   reducers: {
-    toggelMenu: (state, action) => ({
+    toggleMenu: (state, action) => ({
       ...state,
       open: !state.open,
     }),
@@ -18,8 +18,7 @@ const slice = createSlice({
 export default slice.reducer
 
 // Les actions type
-export const TOGGLE_MENU = String(slice.actions.toggelMenu)
-
+export const TOGGLE_MENU = String(slice.actions.toggleMenu)
 
 // Les actions créateur
-export const toggleMenu = slice.actions.toggelMenu
+export const toggleMenu = slice.actions.toggleMenu
