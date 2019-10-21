@@ -38,7 +38,7 @@ export const HeaderBox = () => {
   )
 }
 
-export const MainContainer = styled.div`
+export const ToDoBox = styled.div`
   padding-top: 40px;
   padding-left: 30px;
   width: 100vw;

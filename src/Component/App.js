@@ -4,8 +4,9 @@ import {
   GlobalStyle,
   HeaderBox,
   MenuContainerBox,
-  MainContainer,
+  ToDoBox,
 } from './Ui/Layout'
+import { ToDos } from './Todo'
 
 export const App = () => {
   const displayMenu = useSelector(state => state.menu.display)
@@ -15,9 +16,9 @@ export const App = () => {
       <GlobalStyle />
       <HeaderBox />
       { displayMenu ? <MenuContainerBox /> : null }
-      <MainContainer>
-        <h1>Hello World</h1>
-      </MainContainer>
+      <ToDoBox>
+        <ToDos />
+      </ToDoBox>
     </>
   )
 }
