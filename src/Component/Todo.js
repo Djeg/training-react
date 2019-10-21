@@ -1,26 +1,34 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { addTodo, toggleError } from '../State/Todos'
+import { addTodo, toggleError, fetchTodo } from '../State/Todos'
 
 export const ToDos = () => {
   const dispatch = useDispatch()
   const hasError = useSelector(state => state.todos.hasError)
   
-  useEffect(() => {
-    const fetchDatas = async () => {
-      if (hasError) {
-        return;
-      }
+  // useEffect(() => {
+  //   const fetchDatas = async () => {
+  //     if (hasError) {
+  //       return;
+  //     }
 
-      try {
-        const response = await fetch(process.env.REACT_APP_TODO_URL)
-        const json = await response.json()
-        dispatch(addTodo(json.todos))
-      } catch {
-        dispatch(toggleError())
-      }
+  //     try {
+  //       const response = await fetch(process.env.REACT_APP_TODO_URL)
+  //       const json = await response.json()
+  //       dispatch(addTodo(json.todos))
+  //     } catch {
+  //       dispatch(toggleError())
+  //     }
+  //   }
+  //   fetchDatas();
+  // }, [dispatch, hasError])
+
+  useEffect(() => {
+    if (hasError) {
+      return;
     }
-    fetchDatas();
+
+    dispatch(fetchTodo())
   }, [dispatch, hasError])
 
   return (

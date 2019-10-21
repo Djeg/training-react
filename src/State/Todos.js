@@ -15,6 +15,7 @@ const slice = createSlice({
       ...state,
       hasError: !state.hasError,
     }),
+    fetchTodo: state => state
   }
 })
 
@@ -24,7 +25,9 @@ export default slice.reducer
 // Les actions type
 export const ADD_TODO = String(slice.actions.addTodo)
 export const TOGGLE_ERROR = String(slice.actions.toggleError)
+export const FETCH_TODO = String(slice.actions.fetchTodo)
 
 // Les actions créateur
 export const addTodo = slice.actions.addTodo
 export const toggleError = slice.actions.toggleError
+export const fetchTodo = slice.actions.fetchTodo
