@@ -31,13 +31,3 @@ test('the toggle error reducer', () => {
   const state2 = reducer(state1, todos.toggleError())
   expect(state2.hasError).toEqual(false)
 })
-
-test('the reload todo reducer', () => {
-  expect(todos.RELOAD_TODO).toEqual('todos/reloadTodo')
-
-  const state1 = reducer(todos.INITIAL_STATE, todos.reloadTodo())
-  expect(state1.reloadCounter).toEqual(1)
-
-  const state2 = reducer(state1, todos.reloadTodo())
-  expect(state2.reloadCounter).toEqual(2)
-})

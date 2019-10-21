@@ -1,34 +1,27 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { addTodo, toggleError, reloadTodo } from '../State/Todos'
+import { addTodo, toggleError } from '../State/Todos'
 
 export const ToDos = () => {
   const dispatch = useDispatch()
-  const reloadCounter = useSelector(state => state.todos.reloadCounter)
   const hasError = useSelector(state => state.todos.hasError)
   
-  useEffect(
-    () => {
-      let url = reloadCounter > 0 ? '/todos.json' : 'http://tata.com/todos.json'
+  useEffect(() => {
+    const fetchDatas = async () => {
+      if (hasError) {
+        return;
+      }
 
-      fetch(url)
-      .then(response => {
-        return response.json()
-      })
-      .then(json => {
-        if (hasError) {
-          dispatch(toggleError())
-        }
+      try {
+        const response = await fetch(process.env.REACT_APP_TODO_URL)
+        const json = await response.json()
         dispatch(addTodo(json.todos))
-      })
-      .catch(() => {
-        if (!hasError) {
-          dispatch(toggleError())
-        }
-      })
-    },
-    [dispatch, reloadCounter],
-  );
+      } catch {
+        dispatch(toggleError())
+      }
+    }
+    fetchDatas();
+  }, [dispatch, hasError])
 
   return (
     <>
@@ -46,7 +39,7 @@ export const ToDo = () => {
   return (
     <>
       {
-        hasError ? <div>Une erreur est survenu <button onClick={() => dispatch(reloadTodo())}>Recharger</button></div> :
+        hasError ? <div>Une erreur est survenu <button onClick={() => dispatch(toggleError())}>Recharger</button></div> :
         todos.map((todo, key) =>
         <div key={`todo-${todo.id}`}>{todo.name}</div>
         )
