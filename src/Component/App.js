@@ -1,6 +1,5 @@
 import React from 'react'
 import './App.css'
-import surveys from '../surveys.json'
 import { SurveyList } from './SurveyList'
 
 export const App = ({ name = "Stranger" }) =>
@@ -8,7 +7,7 @@ export const App = ({ name = "Stranger" }) =>
     <header></header>
     <div>
       <div className="content">
-        <SurveyList surveys={surveys} />
+        <SurveyList />
       </div>
     </div>
     <footer></footer>
