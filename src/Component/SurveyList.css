@@ -1,0 +1,30 @@
+.SurveyList {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding-top: 1rem;
+}
+
+.SurveyList .card {
+  min-width: 200px;
+  min-height: 150px;
+  background: white;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, .2);
+  padding: .6rem;
+  margin-bottom: .6rem;
+  margin-right: 1rem;
+}
+
+.SurveyList .card:nth-child(3n+0) {
+  margin-right: 0px
+}
+
+.SurveyList .card .header {
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.SurveyList .card .footer {
+  display: flex;
+  justify-content: space-between;
+}
