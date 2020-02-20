@@ -1,33 +1,36 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import * as SurveyListState from '../State/SurveyList'
 import { ErrorMessage } from './Partial/ErrorMessage'
 import { Loader } from './Partial/Loader'
 import { Link } from 'react-router-dom'
 import './SurveyList.css'
 
 export const SurveyList = () => {
-  const [ surveyList, setSurveyList ] = useState([])
-  const [ loading, setLoading ] = useState(true)
-  const [ error, setError ] = useState(null)
+  const surveyList = useSelector(state => state.surveyList.data)
+  const loading = useSelector(state => state.surveyList.loading)
+  const error = useSelector(state => state.surveyList.error)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (error) {
       return
     }
 
-    setLoading(true)
+    dispatch(SurveyListState.fetch())
     fetch('/surveys.json')
       .then(response => response.json())
-      .then(setSurveyList)
-      .catch(setError)
-      .finally(() => setLoading(false))
-  }, [error])
+      .then(SurveyListState.received)
+      .then(dispatch)
+      .catch(error => dispatch(SurveyListState.fail(error)))
+  }, [ error, dispatch ])
 
   return (
     <>
       {loading && <Loader />}
       {!loading && error && (
         <ErrorMessage
-          onClick={() => setError(null)}
+          onClick={() => dispatch(SurveyListState.fetch())}
         >
           {error.message}
         </ErrorMessage>
