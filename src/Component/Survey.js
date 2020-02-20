@@ -3,6 +3,7 @@ import { ErrorMessage } from './Partial/ErrorMessage'
 import { Loader } from './Partial/Loader'
 import { useSelector, useDispatch } from 'react-redux'
 import * as SurveyState from '../State/Survey'
+import * as Api from '../Util/Api'
 import React, { useEffect } from 'react'
 
 export const Survey = () => {
@@ -17,10 +18,8 @@ export const Survey = () => {
     if (errors.length) return
 
     dispatch(SurveyState.fetch())
-    fetch('/surveys.json') // Promise<Response>
-      .then(response => response.json()) // Promise<Array<Survey>>
-      .then(surveys => surveys.find(s => s.id === Number(id))) // Promise<Survey>
-      .then(survey => survey || Promise.reject(Error('No survey found'))) // Promise<Survey>
+    Api
+      .fetchSurvey(id)
       .then(survey => SurveyState.received(survey)) // Promise<Action>
       .then(action => dispatch(action)) // Promise<null>
       .catch(error => dispatch(SurveyState.fail(error)))

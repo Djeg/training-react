@@ -4,6 +4,7 @@ import * as SurveyListState from '../State/SurveyList'
 import { ErrorMessage } from './Partial/ErrorMessage'
 import { Loader } from './Partial/Loader'
 import { Link } from 'react-router-dom'
+import * as Api from '../Util/Api'
 import './SurveyList.css'
 
 export const SurveyList = () => {
@@ -18,8 +19,8 @@ export const SurveyList = () => {
     }
 
     dispatch(SurveyListState.fetch())
-    fetch('/surveys.json')
-      .then(response => response.json())
+    Api
+      .fetchSurveys()
       .then(SurveyListState.received)
       .then(dispatch)
       .catch(error => dispatch(SurveyListState.fail(error)))
