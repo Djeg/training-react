@@ -5,6 +5,7 @@ import { Survey } from './Survey'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
+import { Firewall } from './Security/Firewall'
 import * as State from '../State'
 
 export const App = ({ name = "Stranger" }) =>
@@ -19,7 +20,9 @@ export const App = ({ name = "Stranger" }) =>
           <div className="content">
             <Switch>
               <Route path="/" component={SurveyList} exact />
-              <Route path="/survey/:id" component={Survey} exact />
+              <Firewall role="USER">
+                <Route path="/survey/:id" component={Survey} exact />
+              </Firewall>
             </Switch>
           </div>
         </div>

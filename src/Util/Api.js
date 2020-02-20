@@ -1,3 +1,7 @@
+export const fetchRoles = () => makeJsonRequest('/roles.json')
+
+export const fetchMe = () => makeJsonRequest('/me.json')
+
 export const fetchSurveys = () => makeJsonRequest('/surveys.json')
 
 export const fetchSurvey = id => makeJsonRequest('/surveys.json')

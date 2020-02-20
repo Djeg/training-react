@@ -4,6 +4,7 @@ import { Loader } from './Partial/Loader'
 import { useSelector, useDispatch } from 'react-redux'
 import * as SurveyState from '../State/Survey'
 import * as Api from '../Util/Api'
+import * as Security from './Security'
 import React, { useEffect } from 'react'
 
 export const Survey = () => {
@@ -42,7 +43,14 @@ export const Survey = () => {
           dispatch(SurveyState.submit())
         }}>
           <h1>{title}</h1>
-          <p>Choose your answers:</p>
+          <Security.OnlyFor
+            role="ADMIN"
+            FallbackComponent={() =>
+              <p>Choose your answer:</p>
+            }
+          >
+            <p>Choose your answers master of the world:</p>
+          </Security.OnlyFor>
           {answers.map((answer, index) => 
             <div key={`survey-${id}-answer-${answer}`}>
             <input type="radio" name="answer" id={`answer-${answer}`} value={index} onChange={e => {
