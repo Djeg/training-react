@@ -3,13 +3,12 @@ import { ErrorMessage } from './Partial/ErrorMessage'
 import { Loader } from './Partial/Loader'
 import { useSelector, useDispatch } from 'react-redux'
 import * as SurveyState from '../State/Survey'
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 export const Survey = () => {
   const { id } = useParams()
   const title = useSelector(state => state.survey.title)
   const answers = useSelector(state => state.survey.answers)
-  const formData = useSelector(state => state.survey.formData)
   const loading = useSelector(state => state.survey.loading)
   const errors = useSelector(state => state.survey.errors)
   const dispatch = useDispatch()
