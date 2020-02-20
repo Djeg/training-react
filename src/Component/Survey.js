@@ -1,58 +1,67 @@
 import { useParams } from 'react-router-dom'
 import { ErrorMessage } from './Partial/ErrorMessage'
 import { Loader } from './Partial/Loader'
+import { useSelector, useDispatch } from 'react-redux'
+import * as SurveyState from '../State/Survey'
 import React, { useState, useEffect } from 'react'
 
 export const Survey = () => {
   const { id } = useParams()
-  const [ survey, setSurvey ] = useState({})
-  const [ error, setError ] = useState(null)
-  const [ loading, setLoading ] = useState(true)
-  const [ answer, setAnswer ] = useState(null)
-  const [ username, setUsername ] = useState(null)
+  const title = useSelector(state => state.survey.title)
+  const answers = useSelector(state => state.survey.answers)
+  const formData = useSelector(state => state.survey.formData)
+  const loading = useSelector(state => state.survey.loading)
+  const errors = useSelector(state => state.survey.errors)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    if (error) return
+    if (errors.length) return
 
-    setLoading(true)
-    fetch('/surveys.json')
-      .then(response => response.json())
-      .then(surveys => surveys.find(s => s.id === Number(id)))
-      .then(survey => survey || Promise.reject(Error('No survey found')))
-      .then(setSurvey)
-      .catch(setError)
-      .finally(() => setLoading(false))
-  }, [ error, id ])
+    dispatch(SurveyState.fetch())
+    fetch('/surveys.json') // Promise<Response>
+      .then(response => response.json()) // Promise<Array<Survey>>
+      .then(surveys => surveys.find(s => s.id === Number(id))) // Promise<Survey>
+      .then(survey => survey || Promise.reject(Error('No survey found'))) // Promise<Survey>
+      .then(survey => SurveyState.received(survey)) // Promise<Action>
+      .then(action => dispatch(action)) // Promise<null>
+      .catch(error => dispatch(SurveyState.fail(error)))
+  }, [ errors, id, dispatch ])
 
   return (
     <>
-      {error && (
-        <ErrorMessage onClick={() => setError(null)}>
-          {error.message}
+      {errors.length && errors.map((e, index) => (
+        <ErrorMessage onClick={() => dispatch(SurveyState.fetch())}>
+          {e.message}
         </ErrorMessage>
-      )}
+      ))}
       {loading && (
         <Loader />
       )}
-      {!loading && !error && (
+      {!loading && !errors.length && (
         <form onSubmit={e => {
           e.preventDefault()
 
-          console.warn(answer, username)
+          dispatch(SurveyState.submit())
         }}>
-          <h1>{survey.title}</h1>
+          <h1>{title}</h1>
           <p>Choose your answers:</p>
-          {survey?.answers?.map((answer, index) => 
-            <div key={`survey-${survey.id}-answer-${answer}`}>
+          {answers.map((answer, index) => 
+            <div key={`survey-${id}-answer-${answer}`}>
             <input type="radio" name="answer" id={`answer-${answer}`} value={index} onChange={e => {
-              setAnswer(index)
+              dispatch(SurveyState.changeFormData({
+                name: 'answer',
+                value: index,
+              }))
             }} />
               <label htmlFor={`answer-${answer}`}>{answer}</label>
             </div>
           )}
           <div>
           <input name="username" type="text" placeholder="Please, specify your name" onChange={e => {
-            setUsername(e.target.value)
+            dispatch(SurveyState.changeFormData({
+              name: 'username',
+              value: e.target.value,
+            }))
           }} />
           </div>
           <div>
