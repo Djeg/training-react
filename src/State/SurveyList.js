@@ -47,3 +47,9 @@ export const {
   fail,
   received,
 } = slice.actions
+
+export const select = {
+  data: state => state.surveyList.data,
+  loading: state => state.surveyList.loading,
+  error: state => state.surveyList.error,
+}

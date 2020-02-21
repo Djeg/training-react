@@ -8,9 +8,9 @@ import { Link } from 'react-router-dom'
 import './SurveyList.css'
 
 export const SurveyList = () => {
-  const surveyList = useSelector(state => state.surveyList.data)
-  const loading = useSelector(state => state.surveyList.loading)
-  const error = useSelector(state => state.surveyList.error)
+  const surveyList = useSelector(SurveyListState.select.data)
+  const loading = useSelector(SurveyListState.select.loading)
+  const error = useSelector(SurveyListState.select.error)
   const dispatch = useDispatch()
 
   useActions([ SurveyListState.fetch() ])

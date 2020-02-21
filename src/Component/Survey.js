@@ -9,10 +9,10 @@ import React from 'react'
 
 export const Survey = () => {
   const { id } = useParams()
-  const title = useSelector(state => state.survey.title)
-  const answers = useSelector(state => state.survey.answers)
-  const loading = useSelector(state => state.survey.loading)
-  const errors = useSelector(state => state.survey.errors)
+  const title = useSelector(SurveyState.select.title)
+  const answers = useSelector(SurveyState.select.answers)
+  const loading = useSelector(SurveyState.select.loading)
+  const errors = useSelector(SurveyState.select.errors)
   const dispatch = useDispatch()
 
   useActions([ SurveyState.fetch(id) ], [ id ])

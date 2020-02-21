@@ -36,6 +36,10 @@ export const {
   receivedUser,
 } = slice.actions
 
+export const select = {
+  roleHierarchy: state => state.auth.roleHierarchy,
+  user: state => state.auth.user,
+}
 
 export const hasRight = (role, expectedRole, roles) => {
   const ownedRoles = roles[role]

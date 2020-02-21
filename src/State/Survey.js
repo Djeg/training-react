@@ -52,3 +52,10 @@ export const {
   submit,
   changeFormData,
 } = slice.actions
+
+export const select = {
+  title: state => state.survey.title,
+  answers: state => state.survey.answers,
+  loading: state => state.survey.loading,
+  errors: state => state.survey.errors,
+}
