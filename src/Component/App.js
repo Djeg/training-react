@@ -10,10 +10,7 @@ import * as State from '../State'
 
 export const App = ({ name = "Stranger" }) =>
   <BrowserRouter>
-    <Provider store={createStore(
-      State.reducer,
-      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-    )}>
+    <Provider store={State.createStore()}>
       <div className="App">
         <header></header>
         <div>

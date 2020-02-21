@@ -24,7 +24,6 @@ const slice = createSlice({
     fetch: state => ({
       ...state,
       loading: true,
-      error: null,
     }),
 
     fail: (state, { payload: error }) => ({

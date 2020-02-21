@@ -4,7 +4,6 @@ import * as SurveyListState from '../State/SurveyList'
 import { ErrorMessage } from './Partial/ErrorMessage'
 import { Loader } from './Partial/Loader'
 import { Link } from 'react-router-dom'
-import * as Api from '../Util/Api'
 import './SurveyList.css'
 
 export const SurveyList = () => {
@@ -13,18 +12,10 @@ export const SurveyList = () => {
   const error = useSelector(state => state.surveyList.error)
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    if (error) {
-      return
-    }
-
-    dispatch(SurveyListState.fetch())
-    Api
-      .fetchSurveys()
-      .then(SurveyListState.received)
-      .then(dispatch)
-      .catch(error => dispatch(SurveyListState.fail(error)))
-  }, [ error, dispatch ])
+  useEffect(
+    () => { dispatch(SurveyListState.fetch()) },
+    [ dispatch ]
+  )
 
   return (
     <>
@@ -33,7 +24,7 @@ export const SurveyList = () => {
         <ErrorMessage
           onClick={() => dispatch(SurveyListState.fetch())}
         >
-          {error.message}
+          {error}
         </ErrorMessage>
       )}
       {!loading && !error && (
