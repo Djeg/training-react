@@ -1,5 +1,6 @@
 import * as SurveyList from './SurveyList'
 import * as Survey from './Survey'
+import * as Auth from './Auth'
 import * as Effect from '../Effect'
 import { configureStore } from '@reduxjs/toolkit'
 import createSagaMiddleware from 'redux-saga'
@@ -10,6 +11,7 @@ export const createStore = () => {
     reducer: {
       surveyList: SurveyList.reducer,
       survey: Survey.reducer,
+      auth: Auth.reducer,
     },
     devTools: true,
     middleware: [ sagaMiddleware ]

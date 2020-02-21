@@ -4,25 +4,25 @@ import { SurveyList } from './SurveyList'
 import { Survey } from './Survey'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { Firewall } from './Security/Firewall'
+import { AuthProvider } from './Security/AuthProvider'
 import * as State from '../State'
 
 export const App = ({ name = "Stranger" }) =>
   <BrowserRouter>
     <Provider store={State.createStore()}>
-      <div className="App">
-        <header></header>
-        <div>
-          <div className="content">
-            <Switch>
-              <Route path="/" component={SurveyList} exact />
-              <Firewall role="USER">
+      <AuthProvider>
+        <div className="App">
+          <header></header>
+          <div>
+            <div className="content">
+              <Switch>
+                <Route path="/" component={SurveyList} exact />
                 <Route path="/survey/:id" component={Survey} exact />
-              </Firewall>
-            </Switch>
+              </Switch>
+            </div>
           </div>
+          <footer></footer>
         </div>
-        <footer></footer>
-      </div>
+      </AuthProvider>
     </Provider>
   </BrowserRouter>

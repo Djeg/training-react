@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { hasRight } from './Firewall'
-import * as Api from '../../Util/Api'
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { useActions } from '../../Util/Hook'
+import * as Auth from '../../State/Auth'
 
 export const OnlyFor = ({
   role = "USER",
@@ -8,18 +9,10 @@ export const OnlyFor = ({
   children,
   ...restProps
 }) => {
-  const [ roles, setRoles ] = useState(null)
-  const [ user, setUser ] = useState(null)
+  const user = useSelector(state => state.auth.user)
+  const roles = useSelector(state => state.auth.roleHierarchy)
 
-  useEffect(() => {
-    Api
-      .fetchRoles()
-      .then(setRoles)
-      .then(Api.fetchMe)
-      .then(setUser)
-  }, [])
-
-  return user && hasRight(user.role, role, roles)
+  return user && Auth.hasRight(user.role, role, roles)
     ? children
     : FallbackComponent
       ? <FallbackComponent {...restProps} />

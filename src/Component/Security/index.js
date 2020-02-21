@@ -1,2 +1,2 @@
-export { Firewall } from './Firewall'
+export { AuthProvider } from './AuthProvider'
 export { OnlyFor } from './OnlyFor'
