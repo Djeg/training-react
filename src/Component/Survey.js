@@ -4,6 +4,7 @@ import { Loader } from './Partial/Loader'
 import { useSelector, useDispatch } from 'react-redux'
 import * as SurveyState from '../State/Survey'
 import * as Security from './Security'
+import * as Validator from '../Effect/Form/Validator'
 import { useActions } from '../Util/Hook'
 import React from 'react'
 
@@ -13,6 +14,7 @@ export const Survey = () => {
   const answers = useSelector(SurveyState.select.answers)
   const loading = useSelector(SurveyState.select.loading)
   const errors = useSelector(SurveyState.select.errors)
+  const formData = useSelector(SurveyState.select.formData)
   const dispatch = useDispatch()
 
   useActions([ SurveyState.fetch(id) ], [ id ])
@@ -54,12 +56,27 @@ export const Survey = () => {
             </div>
           )}
           <div>
-          <input name="username" type="text" placeholder="Please, specify your name" onChange={e => {
-            dispatch(SurveyState.changeFormData({
-              name: 'username',
-              value: e.target.value,
-            }))
-          }} />
+            <input
+              name="username"
+              type="text"
+              placeholder="Please, specify your name"
+              onChange={e => {
+                dispatch(SurveyState.changeFormData({
+                  name: 'username',
+                  value: e.target.value,
+                  validators: [
+                    Validator.noBlank,
+                    Validator.maxLength(12),
+                  ]
+                }))
+              }}
+            />
+            {!formData.username.errors.length
+              ? null 
+              : formData.username.errors.map(
+                (err, index) => <p key={`field-error-username-${index}`}>{err}</p>
+              )
+            }
           </div>
           <div>
             <button type="submit">Send</button>

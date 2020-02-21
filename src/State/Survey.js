@@ -58,4 +58,5 @@ export const select = {
   answers: state => state.survey.answers,
   loading: state => state.survey.loading,
   errors: state => state.survey.errors,
+  formData: state => state.survey.formData,
 }

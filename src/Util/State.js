@@ -11,7 +11,9 @@ export const changeFormData = (state, { payload: { name, value, errors } }) => (
     ...state.formData,
     [name]: {
       value: value || state.formData[name].value,
-      errors: errors || [],
+      errors: errors
+        ? [ ...state.formData[name].errors, ...errors ]
+        : [],
     },
   }
 })
