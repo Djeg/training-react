@@ -16,13 +16,14 @@ export const Survey = () => {
   const errors = useSelector(SurveyState.select.errors)
   const formData = useSelector(SurveyState.select.formData)
   const dispatch = useDispatch()
+  const retry = id => () => dispatch(SurveyState.fetch(id))
 
   useActions([ SurveyState.fetch(id) ], [ id ])
 
   return (
     <>
       {errors.length && errors.map((e, index) => (
-        <ErrorMessage onClick={() => dispatch(SurveyState.fetch(id))}>
+        <ErrorMessage onClick={retry(id)}>
           {e.message}
         </ErrorMessage>
       ))}
