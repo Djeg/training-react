@@ -3,9 +3,9 @@ import { ErrorMessage } from './Partial/ErrorMessage'
 import { Loader } from './Partial/Loader'
 import { useSelector, useDispatch } from 'react-redux'
 import * as SurveyState from '../State/Survey'
-import * as Api from '../Util/Api'
 import * as Security from './Security'
-import React, { useEffect } from 'react'
+import { useActions } from '../Util/Hook'
+import React from 'react'
 
 export const Survey = () => {
   const { id } = useParams()
@@ -15,21 +15,12 @@ export const Survey = () => {
   const errors = useSelector(state => state.survey.errors)
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    if (errors.length) return
-
-    dispatch(SurveyState.fetch())
-    Api
-      .fetchSurvey(id)
-      .then(survey => SurveyState.received(survey)) // Promise<Action>
-      .then(action => dispatch(action)) // Promise<null>
-      .catch(error => dispatch(SurveyState.fail(error)))
-  }, [ errors, id, dispatch ])
+  useActions([ SurveyState.fetch(id) ], [ id ])
 
   return (
     <>
       {errors.length && errors.map((e, index) => (
-        <ErrorMessage onClick={() => dispatch(SurveyState.fetch())}>
+        <ErrorMessage onClick={() => dispatch(SurveyState.fetch(id))}>
           {e.message}
         </ErrorMessage>
       ))}

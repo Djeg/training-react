@@ -4,7 +4,6 @@ import { SurveyList } from './SurveyList'
 import { Survey } from './Survey'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
 import { Firewall } from './Security/Firewall'
 import * as State from '../State'
 

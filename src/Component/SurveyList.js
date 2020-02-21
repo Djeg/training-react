@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import { useActions } from '../Util/Hook'
 import { useSelector, useDispatch } from 'react-redux'
 import * as SurveyListState from '../State/SurveyList'
 import { ErrorMessage } from './Partial/ErrorMessage'
@@ -12,10 +13,7 @@ export const SurveyList = () => {
   const error = useSelector(state => state.surveyList.error)
   const dispatch = useDispatch()
 
-  useEffect(
-    () => { dispatch(SurveyListState.fetch()) },
-    [ dispatch ]
-  )
+  useActions([ SurveyListState.fetch() ])
 
   return (
     <>
